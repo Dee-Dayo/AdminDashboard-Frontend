@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import photo from "../../../assets/register.jpg";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +15,6 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Handle form data change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -23,7 +23,6 @@ const Signup = () => {
     }));
   };
 
-  // Validate form data
   const validate = () => {
     const newErrors = {};
     if (!formData.firstName) newErrors.firstName = "First Name is required";
@@ -36,34 +35,31 @@ const Signup = () => {
     if (!formData.role) newErrors.role = "Role is required";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // returns true if no errors
+    return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
       console.log("Form data submitted:", formData);
-      // You can add your API request here to submit the data
     }
   };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Left half (Image) */}
       <div
-        className="w-full md:w-1/2 bg-cover bg-center h-64 md:h-auto"
-        style={{ backgroundImage: "url('your-image-url-here')" }}
-      >
-        {/* Background Image (adjust as needed) */}
-      </div>
+        className="w-full md:w-1/2 h-64 md:h-auto"
+        style={{
+          backgroundImage: `url(${photo})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
 
-      {/* Right half (Signup form) */}
       <div className="w-full md:w-1/2 flex justify-center items-center bg-white p-8">
         <form onSubmit={handleSubmit} className="w-full max-w-lg space-y-6">
           <h2 className="text-2xl font-bold text-center mb-4">Create an Account</h2>
 
-          {/* First Name */}
           <div className="flex flex-col">
             <label htmlFor="firstName" className="text-sm font-semibold">First Name</label>
             <input
@@ -77,7 +73,6 @@ const Signup = () => {
             {errors.firstName && <div className="text-red-500 text-sm mt-1">{errors.firstName}</div>}
           </div>
 
-          {/* Last Name */}
           <div className="flex flex-col">
             <label htmlFor="lastName" className="text-sm font-semibold">Last Name</label>
             <input
@@ -91,7 +86,6 @@ const Signup = () => {
             {errors.lastName && <div className="text-red-500 text-sm mt-1">{errors.lastName}</div>}
           </div>
 
-          {/* Email */}
           <div className="flex flex-col">
             <label htmlFor="email" className="text-sm font-semibold">Email Address</label>
             <input
@@ -105,7 +99,6 @@ const Signup = () => {
             {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
           </div>
 
-          {/* Username */}
           <div className="flex flex-col">
             <label htmlFor="username" className="text-sm font-semibold">Username</label>
             <input
@@ -119,7 +112,6 @@ const Signup = () => {
             {errors.username && <div className="text-red-500 text-sm mt-1">{errors.username}</div>}
           </div>
 
-          {/* Password */}
           <div className="flex flex-col">
             <label htmlFor="password" className="text-sm font-semibold">Password</label>
             <input
@@ -133,7 +125,6 @@ const Signup = () => {
             {errors.password && <div className="text-red-500 text-sm mt-1">{errors.password}</div>}
           </div>
 
-          {/* Role */}
           <div className="flex flex-col">
             <label htmlFor="role" className="text-sm font-semibold">Role</label>
             <select
@@ -145,13 +136,12 @@ const Signup = () => {
             >
               <option value="">Select Role</option>
               <option value="admin">Admin</option>
-              <option value="user">User</option>
-              <option value="manager">Manager</option>
+              <option value="viewer">Viewer</option>
+              <option value="editor">Editor</option>
             </select>
             {errors.role && <div className="text-red-500 text-sm mt-1">{errors.role}</div>}
           </div>
 
-          {/* Submit Button */}
           <div className="flex justify-center">
             <button
               type="submit"
@@ -161,7 +151,6 @@ const Signup = () => {
             </button>
           </div>
 
-          {/* Already have an account? */}
           <div className="flex justify-center mt-4">
             <span className="text-sm text-gray-600">Already have an account?</span>
             <button

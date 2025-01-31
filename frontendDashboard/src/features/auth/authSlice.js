@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { RootState } from "../../app/store";
-
+//import { RootState } from "../../app/store";
+import { isRejectedWithValue } from "@reduxjs/toolkit";
+//import { isRejected } from "@reduxjs/toolkit";
 
 const initialState = {
     user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
@@ -11,14 +12,17 @@ const initialState = {
     error: null,
 }
 
+
+//const credentials = ;
+
 export const loginUser = createAsyncThunk(
     'auth/login',
-    async (credentials: { email: string; password: string }, { rejectWithValue }) => {
+    async ({ email, password}) => {
       try {
-        const response = await axios.post('/api/auth/login', credentials);
+        const response = await axios.post('/api/auth/login', { email, password});
         return response.data;
-      } catch (error: any) {
-        return rejectWithValue(error.response.data);
+      } catch (error) {
+        return isRejectedWithValue(error.response.data);
       }
     }
   );
@@ -27,12 +31,12 @@ export const loginUser = createAsyncThunk(
     'auth/refresh',
     async (_, { getState, rejectWithValue }) => {
       try {
-        const { auth } = getState() as RootState;
+        const { auth } = getState();
         const response = await axios.post('/api/auth/refresh', {
           refreshToken: auth.refreshToken,
         });
         return response.data;
-      } catch (error: any) {
+      } catch (error) {
         return rejectWithValue(error.response.data);
       }
     }
@@ -68,7 +72,7 @@ export const loginUser = createAsyncThunk(
         })
         .addCase(loginUser.rejected, (state, action) => {
           state.loading = false;
-          state.error = action.payload as string;
+          state.error = action.payload ;
         })
         .addCase(refreshAccessToken.fulfilled, (state, action) => {
           state.accessToken = action.payload.accessToken;

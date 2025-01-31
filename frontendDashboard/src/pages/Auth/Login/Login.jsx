@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, logout } from '../features/auth/authSlice';
-import { RootState } from "../../../store/store";
+import { loginUser, logout } from '../../../features/auth/authSlice';
+//import { RootState } from "../../../store/store";
 import { useNavigate } from "react-router-dom";
 
 

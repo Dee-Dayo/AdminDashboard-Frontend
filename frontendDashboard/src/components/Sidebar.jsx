@@ -1,5 +1,6 @@
-// src/components/Sidebar.jsx
+// src/components/Sidebar.tsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
@@ -7,10 +8,13 @@ const Sidebar = () => {
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <ul className="mt-6">
         <li className="mb-2">
-          <a href="/" className="hover:text-gray-400">Home</a>
+          <Link to="/dashboard" className="hover:text-gray-400 block py-2">Analytics</Link>
         </li>
         <li className="mb-2">
-          <a href="/users" className="hover:text-gray-400">Users</a>
+          <Link to="/users" className="hover:text-gray-400 block py-2">User Management</Link>
+        </li>
+        <li className="mb-2">
+          <Link to="/settings" className="hover:text-gray-400 block py-2">Settings</Link>
         </li>
       </ul>
     </div>

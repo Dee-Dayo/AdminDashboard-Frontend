@@ -20,17 +20,18 @@ const App = () => {
       <div className="flex-1">
         <Navbar />
         <div className="p-6">
-          <Router>
+        
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/users" element={<Users />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/users" element={<Users />} />
             <Route path="/admin" element={<Admin />} />
 
           </Routes>
-          </Router>
+        
         </div>
       </div>
     </div>

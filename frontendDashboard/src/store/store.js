@@ -2,22 +2,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 
-
-
 export const store = configureStore({
   reducer: {
-      auth: authReducer, // Add the auth reducer to the store
-    // Add reducers here
+    auth: authReducer, // Added auth reducer
   },
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false, // Disable serializableCheck
     }),
-    devTools: process.env.NODE_ENV !== 'production', // Enable Redux DevTools in development mode
+  devTools: process.env.NODE_ENV !== "production", // Enable Redux DevTools in development mode
 });
 
-export const RootState =  store.getState; // Export RootState type for useSelector
-
-export const AppDispatch =  store.dispatch; // Export AppDispatch type for useDispatch
-
+// Correcting types for RootState and AppDispatch
+export const RootState = () => store.getState(); // Fixed to return the function call
+export const AppDispatch = () => store.dispatch; // Fixed to return the function call

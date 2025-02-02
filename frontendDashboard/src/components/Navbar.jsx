@@ -2,7 +2,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/auth/authSlice";
-//import { RootState } from "../store/store";
 
 const Navbar = () => {
   const dispatch = useDispatch();

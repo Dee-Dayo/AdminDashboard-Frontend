@@ -1,18 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
 import Users from "./pages/Users";
 import Register from "./pages/Auth/Register/Register.jsx";
 import Login from "./pages/Auth/Login/Login.jsx";
 import Dashboard from "./features/dashboard/Dashboard.jsx";
 import Admin from "./features/admin/admin.jsx";
+import SettingsPage from "./features/dashboard/SettingsPage.jsx";
 
 
 const App = () => {
   const location = useLocation();
-  const excludePaths = ["/register"];
+  const excludePaths = ["/register", "/login"];
 
   return (
     <div className="flex">
@@ -29,6 +29,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/users" element={<Users />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/settings" element={<SettingsPage/>} />
 
           </Routes>
         

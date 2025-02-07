@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import photo from "../../../assets/register.jpg";
 
 const Signup = () => {
@@ -38,10 +41,25 @@ const Signup = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      console.log("Form data submitted:", formData);
+    if (!validate()) return;
+
+    const API_BASE_URL = "https://admindashboard-8ee2.onrender.com/api/v1";
+    const endpoint =
+      formData.role.toLowerCase() === "admin"
+        ? `${API_BASE_URL}/Admin/registerAdmin`
+        : `${API_BASE_URL}/User/registerUser`;
+
+    try {
+      const response = await axios.post(endpoint, formData);
+      if (response.status === 201) {
+        toast.success("Signup successful! Redirecting to login...", { autoClose: 3000 });
+        setTimeout(() => navigate("/login"), 3000);
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "Signup failed. Please try again.";
+      toast.error(errorMessage);
     }
   };
 
@@ -135,9 +153,8 @@ const Signup = () => {
               className="border-2 border-gray-300 rounded-md p-2 mt-1"
             >
               <option value="">Select Role</option>
-              <option value="admin">Admin</option>
-              <option value="viewer">Viewer</option>
-              <option value="editor">Editor</option>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
             </select>
             {errors.role && <div className="text-red-500 text-sm mt-1">{errors.role}</div>}
           </div>

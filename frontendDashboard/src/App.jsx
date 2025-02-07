@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import {Routes, Route, useLocation, Navigate} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Users from "./pages/Users";
@@ -20,17 +20,15 @@ const App = () => {
       <div className="flex-1">
         <Navbar />
         <div className="p-6">
-        
+
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/users" element={<Users />} />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/users" element={<Users />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/settings" element={<SettingsPage/>} />
-
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         
         </div>

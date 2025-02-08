@@ -3,10 +3,16 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  base: "./", // Ensures correct asset paths
   build: {
-    target: 'es2015', // Change this to 'es2015' for wider browser support
+    target: "esnext", // 'es2015' is fine, but 'esnext' optimizes better
+    outDir: "dist",
   },
   server: {
-    host: true, // Ensures it runs on all network interfaces
+    host: true, // Ensures the app is accessible in the local network
+    port: 5173, // Vite default port, can be changed if needed
+  },
+  preview: {
+    port: 5000, // Makes sure Vite preview works correctly
   },
 });

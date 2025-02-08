@@ -27,19 +27,29 @@ const Signup = () => {
   };
 
   const validate = () => {
-    const newErrors = {};
-    if (!formData.firstName) newErrors.firstName = "First Name is required";
-    if (!formData.lastName) newErrors.lastName = "Last Name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid";
-    if (!formData.username) newErrors.username = "Username is required";
-    if (!formData.password) newErrors.password = "Password is required";
-    else if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
-    if (!formData.role) newErrors.role = "Role is required";
+  const newErrors = {};
+  if (!formData.firstName) newErrors.firstName = "First Name is required";
+  if (!formData.lastName) newErrors.lastName = "Last Name is required";
+  if (!formData.email) newErrors.email = "Email is required";
+  else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid";
+  if (!formData.username) newErrors.username = "Username is required";
+  if (!formData.password) {
+    newErrors.password = "Password is required";
+  } else if (formData.password.length < 6) {
+    newErrors.password = "Password must be at least 6 characters";
+  } else if (!/[A-Z]/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one uppercase letter";
+  } else if (!/[0-9]/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one number";
+  } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(formData.password)) {
+    newErrors.password = "Password must contain at least one special character";
+  }
+  if (!formData.role) newErrors.role = "Role is required";
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +63,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(endpoint, formData);
+      console.log(response)
       if (response.status === 201) {
         toast.success("Signup successful! Redirecting to login...", { autoClose: 3000 });
         setTimeout(() => navigate("/login"), 3000);

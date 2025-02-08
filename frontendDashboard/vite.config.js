@@ -8,6 +8,5 @@ export default defineConfig({
   },
   server: {
     host: true, // Ensures it runs on all network interfaces
-    strictPort: true,
   },
 });
